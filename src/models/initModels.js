@@ -2,6 +2,7 @@
 import Auto from "./autos.model.js";
 import Brand from "./brands.model.js";
 import Country from "./countries.model.js";
+import Transmission from "./transmissions.model.js";
 
 const initModels = () => {
   // relacion entre Auto y Marca
@@ -15,6 +16,12 @@ const initModels = () => {
   Brand.belongsTo(Country, { foreignKey: "countryId" });
   // Pais tiene muchas marcas
   Country.hasMany(Brand, { foreignKey: "countryId" });
+
+  // Autos y Transmisiones
+  // Un auto tiene muchas transmisisones
+  Auto.belongsToMany(Transmission, { through: "AutoTransmissions" });
+  // Una transmision la pueden tener muchos autos
+  Transmission.belongsToMany(Auto, { through: "AutoTransmissions" });
 };
 
 export default initModels;
